@@ -9,7 +9,7 @@
 
     <ItemGroup>
         <PackageReference Include="MediatR" Version="14.0.0" />
-        <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.56.0" />
+        <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.57.0" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     </ItemGroup>
 
