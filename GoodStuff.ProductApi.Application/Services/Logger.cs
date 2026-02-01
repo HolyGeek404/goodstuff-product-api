@@ -2,7 +2,7 @@ using System.Net;
 using System.Text.Json;
 using Microsoft.Extensions.Logging;
 
-namespace GoodStuff.ProductApi.Domain;
+namespace GoodStuff.ProductApi.Application.Services;
 
 public static partial class Logger
 {
