@@ -6,6 +6,7 @@ using GoodStuff.ProductApi.Application.Features.Product.Commands.Delete;
 using GoodStuff.ProductApi.Application.Features.Product.Commands.Update;
 using GoodStuff.ProductApi.Application.Features.Product.Queries.GetById;
 using GoodStuff.ProductApi.Application.Features.Product.Queries.GetByType;
+using GoodStuff.ProductApi.Application.Services;
 using GoodStuff.ProductApi.Domain;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;

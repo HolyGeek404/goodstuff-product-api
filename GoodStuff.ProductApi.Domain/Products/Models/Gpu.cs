@@ -2,22 +2,22 @@ namespace GoodStuff.ProductApi.Domain.Products.Models;
 
 public class Gpu : BaseProduct
 {
-    public string? GpuProcessorLine { get; set; }
-    public string? PcieType { get; set; }
-    public string? MemorySize { get; set; }
-    public string? MemoryType { get; set; }
-    public string? MemoryBus { get; set; }
-    public string? MemoryRatio { get; set; }
-    public string? CoreRatio { get; set; }
-    public string? CoresNumber { get; set; }
-    public string? CoolingType { get; set; }
-    public string? OutputsType { get; set; }
-    public string? SupportedLibraries { get; set; }
-    public string? PowerConnector { get; set; }
-    public string? RecommendedPsuPower { get; set; }
-    public string? Length { get; set; }
-    public string? Width { get; set; }
-    public string? Height { get; set; }
-    public string? GpuProcessorName { get; set; }
-    public string? Manufacturer { get; set; }
+    public required string GpuProcessorLine { get; set; }
+    public required string PcieType { get; set; }
+    public required string MemorySize { get; set; }
+    public required string MemoryType { get; set; }
+    public required string MemoryBus { get; set; }
+    public required string MemoryRatio { get; set; }
+    public required string CoreRatio { get; set; }
+    public required string CoresNumber { get; set; }
+    public required string CoolingType { get; set; }
+    public required string OutputsType { get; set; }
+    public required string SupportedLibraries { get; set; }
+    public required string PowerConnector { get; set; }
+    public required string RecommendedPsuPower { get; set; }
+    public required string Length { get; set; }
+    public required string Width { get; set; }
+    public required string Height { get; set; }
+    public required string GpuProcessorName { get; set; }
+    public required string Manufacturer { get; set; }
 }

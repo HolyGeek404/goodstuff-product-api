@@ -1,4 +1,4 @@
-namespace GoodStuff.ProductApi.Domain;
+namespace GoodStuff.ProductApi.Infrastructure;
 
 public static class Queries
 {
