@@ -1,12 +1,12 @@
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
-WORKDIR /app
+﻿FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+WORKDIR .
 COPY . .
-RUN dotnet restore "./WebApi/WebApi.csproj"
-RUN dotnet publish -c Release -o /app/publish --no-restore
+RUN dotnet restore
+RUN dotnet test GoodStuff.ProductApi.Application.Tests/GoodStuff.ProductApi.Application.Tests.csproj
 
-#Final Stage
-FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS final
-WORKDIR /app
-COPY --from=build /app/publish .
+RUN dotnet publish GoodStuff.ProductApi.Presentation/GoodStuff.ProductApi.Presentation.csproj --no-restore -o /publish/
 
-ENTRYPOINT ["dotnet", "WebApi.dll"]
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS run
+WORKDIR /publish
+COPY --from=build /publish .
+ENTRYPOINT ["dotnet", "GoodStuff.ProductApi.Presentation.dll"]

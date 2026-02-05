@@ -1,3 +1,4 @@
+using Azure.Core;
 using Azure.Identity;
 using GoodStuff.ProductApi.Application.Features.Product.Queries.GetByType;
 using GoodStuff.ProductApi.Application.Interfaces;
@@ -39,11 +40,11 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
-    public static IServiceCollection AddAzureConfig(this IServiceCollection services,
-        IConfigurationManager configuration)
+    public static IServiceCollection AddAzureConfig(this IServiceCollection services, IConfigurationManager configuration, TokenCredential tokenCredential)
     {
         var azureAd = configuration.GetSection("AzureAd");
-        configuration.AddAzureKeyVault(new Uri(azureAd["KvUrl"]), new DefaultAzureCredential());
+        
+        configuration.AddAzureKeyVault(new Uri(azureAd["KvUrl"]), tokenCredential);
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddMicrosoftIdentityWebApi(azureAd);
         return services;
     }
