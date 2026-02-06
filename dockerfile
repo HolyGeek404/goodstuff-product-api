@@ -1,12 +1,42 @@
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
-WORKDIR /app
-COPY . .
-RUN dotnet restore "./WebApi/WebApi.csproj"
-RUN dotnet publish -c Release -o /app/publish --no-restore
+﻿# -------------------------
+# 1️⃣ Build Stage
+# -------------------------
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+WORKDIR /src
 
-#Final Stage
-FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS final
-WORKDIR /app
-COPY --from=build /app/publish .
+# Copy only csproj files first
+COPY GoodStuff.ProductApi.Presentation/*.csproj GoodStuff.ProductApi.Presentation/
+COPY GoodStuff.ProductApi.Application/*.csproj GoodStuff.ProductApi.Application/
+COPY GoodStuff.ProductApi.Domain/*.csproj GoodStuff.ProductApi.Domain/
+COPY GoodStuff.ProductApi.Infrastructure/*.csproj GoodStuff.ProductApi.Infrastructure/
+COPY GoodStuff.ProductApi.Application.Tests/*.csproj GoodStuff.ProductApi.Application.Tests/
 
-ENTRYPOINT ["dotnet", "WebApi.dll"]
+# Restore dependencies
+RUN dotnet restore GoodStuff.ProductApi.Presentation/GoodStuff.ProductApi.Presentation.csproj
+
+# Copy full source
+COPY GoodStuff.ProductApi.Presentation/ GoodStuff.ProductApi.Presentation/
+COPY GoodStuff.ProductApi.Application/ GoodStuff.ProductApi.Application/
+COPY GoodStuff.ProductApi.Domain/ GoodStuff.ProductApi.Domain/
+COPY GoodStuff.ProductApi.Infrastructure/ GoodStuff.ProductApi.Infrastructure/
+COPY GoodStuff.ProductApi.Application.Tests/ GoodStuff.ProductApi.Application.Tests/
+
+# Optional: test stage
+FROM build AS test
+RUN dotnet test GoodStuff.ProductApi.Application.Tests/GoodStuff.ProductApi.Application.Tests.csproj --no-restore
+
+# Publish stage
+FROM build AS publish
+RUN dotnet publish GoodStuff.ProductApi.Presentation/GoodStuff.ProductApi.Presentation.csproj \
+    --no-restore -c Release -o /app/publish
+
+# -------------------------
+# 2️⃣ Runtime Stage
+# -------------------------
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS runtime
+WORKDIR /app
+
+# Copy only published files
+COPY --from=publish /app/publish .
+
+ENTRYPOINT ["dotnet", "GoodStuff.ProductApi.Presentation.dll"]
