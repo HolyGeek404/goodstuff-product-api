@@ -40,11 +40,11 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
-    public static IServiceCollection AddAzureConfig(this IServiceCollection services, IConfigurationManager configuration, TokenCredential tokenCredential)
+    public static IServiceCollection AddAzureConfig(this IServiceCollection services, IConfigurationManager configuration)
     {
         var azureAd = configuration.GetSection("AzureAd");
         
-        configuration.AddAzureKeyVault(new Uri(azureAd["KvUrl"]), tokenCredential);
+        configuration.AddAzureKeyVault(new Uri(azureAd["KvUrl"]), new DefaultAzureCredential());
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddMicrosoftIdentityWebApi(azureAd);
         return services;
     }
