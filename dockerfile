@@ -39,8 +39,4 @@ WORKDIR /app
 # Copy only published files
 COPY --from=publish /app/publish .
 
-# Set environment variables for HTTPS
-ENV ASPNETCORE_URLS=https://+:8443
-ENV ASPNETCORE_HTTPS_PORTS=8443
-
 ENTRYPOINT ["dotnet", "GoodStuff.ProductApi.Presentation.dll"]
