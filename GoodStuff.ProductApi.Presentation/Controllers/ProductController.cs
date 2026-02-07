@@ -19,7 +19,6 @@ namespace GoodStuff.ProductApi.Presentation.Controllers;
 public class ProductController(IMediator mediator, ILogger<ProductController> logger) : Controller
 {
     [HttpGet]
-    [Authorize(Roles = "Get")]
     public async Task<IActionResult> GetByType([FromRoute]string type)
     {
         var caller = User.FindFirst("appid")?.Value ?? "Unknown";
@@ -45,7 +44,6 @@ public class ProductController(IMediator mediator, ILogger<ProductController> lo
     }
 
     [HttpGet]
-    [Authorize(Roles = "Get")]
     [Route("{id}")]
     public async Task<IActionResult> GetById([FromRoute]string type, [FromRoute]string id)
     {
