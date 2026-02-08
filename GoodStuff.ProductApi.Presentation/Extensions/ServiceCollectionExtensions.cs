@@ -1,16 +1,13 @@
-using Azure.Core;
 using Azure.Identity;
 using GoodStuff.ProductApi.Application.Features.Product.Queries.GetByType;
 using GoodStuff.ProductApi.Application.Interfaces;
 using GoodStuff.ProductApi.Application.Services;
 using GoodStuff.ProductApi.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.Azure.Cosmos;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Identity.Web;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
+using System.Reflection;
 
 namespace GoodStuff.ProductApi.Presentation.Extensions;
 
@@ -63,7 +60,19 @@ public static class ServiceCollectionExtensions
         var authority = $"https://login.microsoftonline.com/{tenantId}/v2.0";
         services.AddSwaggerGen(c =>
         {
-            c.SwaggerDoc("v1", new OpenApiInfo { Title = "GoodStuff Product Api Swagger", Version = "v1" });
+            c.SwaggerDoc("v1", new OpenApiInfo
+            {
+                Title = "GoodStuff Product API",
+                Version = "v1",
+                Description =
+                    "Catalog and product data for GoodStuff commerce apps. " +
+                    "All endpoints require a valid bearer token (OAuth2 auth code with PKCE). " +
+                    "Use the configured scope to authenticate and explore product queries."
+            });
+
+            var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+            c.IncludeXmlComments(xmlPath, includeControllerXmlComments: true);
             c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
             {
                 Description = "OAuth2.0 Auth Code with PKCE",
@@ -82,14 +91,10 @@ public static class ServiceCollectionExtensions
                     }
                 }
             });
-            c.AddSecurityRequirement(new OpenApiSecurityRequirement
+            c.AddSecurityRequirement(document => new OpenApiSecurityRequirement
             {
                 {
-                    new OpenApiSecurityScheme
-                    {
-                        Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "oauth2" }
-                    },
-                    [$"{swaggerScope}"]
+                    new OpenApiSecuritySchemeReference("oauth2", document, null), [swaggerScope]
                 }
             });
         });
