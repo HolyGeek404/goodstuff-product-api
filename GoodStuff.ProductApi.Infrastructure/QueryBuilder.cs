@@ -1,4 +1,3 @@
-using GoodStuff.ProductApi.Domain;
 using Microsoft.Azure.Cosmos;
 
 namespace GoodStuff.ProductApi.Infrastructure;

@@ -7,17 +7,26 @@ using GoodStuff.ProductApi.Application.Features.Product.Commands.Update;
 using GoodStuff.ProductApi.Application.Features.Product.Queries.GetById;
 using GoodStuff.ProductApi.Application.Features.Product.Queries.GetByType;
 using GoodStuff.ProductApi.Application.Services;
-using GoodStuff.ProductApi.Domain;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GoodStuff.ProductApi.Presentation.Controllers;
 
+/// <summary>
+/// Exposes product catalog endpoints by product type.
+/// </summary>
 [ApiController]
 [Route("[controller]/{type:alpha}")]
 public class ProductController(IMediator mediator, ILogger<ProductController> logger) : Controller
 {
+    /// <summary>
+    /// Retrieves all products for a given product type.
+    /// </summary>
+    /// <param name="type">Product type segment (e.g., "CPU").</param>
+    /// <response code="200">Returns the products for the requested type.</response>
+    /// <response code="404">No products found for the requested type.</response>
+    /// <response code="500">Unexpected server error.</response>
     [HttpGet]
     public async Task<IActionResult> GetByType([FromRoute]string type)
     {
@@ -43,6 +52,15 @@ public class ProductController(IMediator mediator, ILogger<ProductController> lo
         }
     }
 
+    /// <summary>
+    /// Retrieves a single product by type and identifier.
+    /// </summary>
+    /// <param name="type">Product type segment.</param>
+    /// <param name="id">Product identifier.</param>
+    /// <response code="200">Returns the requested product.</response>
+    /// <response code="400">The product id is missing.</response>
+    /// <response code="404">No product found for the provided type and id.</response>
+    /// <response code="500">Unexpected server error.</response>
     [HttpGet]
     [Route("{id}")]
     public async Task<IActionResult> GetById([FromRoute]string type, [FromRoute]string id)
@@ -75,6 +93,15 @@ public class ProductController(IMediator mediator, ILogger<ProductController> lo
         }
     }
 
+    /// <summary>
+    /// Updates a product payload for the given type.
+    /// </summary>
+    /// <param name="product">Product payload to update.</param>
+    /// <param name="type">Product type segment.</param>
+    /// <response code="204">Update succeeded.</response>
+    /// <response code="400">The product payload is empty.</response>
+    /// <response code="404">No product found to update.</response>
+    /// <response code="500">Unexpected server error.</response>
     [HttpPatch]
     [Authorize(Roles = "Update")]
     public async Task<IActionResult> Update([FromBody]JsonElement product, [FromRoute]string type)
@@ -112,6 +139,14 @@ public class ProductController(IMediator mediator, ILogger<ProductController> lo
         }
     }
 
+    /// <summary>
+    /// Creates a new product for the given type.
+    /// </summary>
+    /// <param name="product">Product payload to create.</param>
+    /// <param name="type">Product type segment.</param>
+    /// <response code="201">Product created.</response>
+    /// <response code="400">The product payload is empty.</response>
+    /// <response code="500">Unexpected server error.</response>
     [HttpPost]
     [Authorize(Roles = "Create")]
     public async Task<IActionResult> Create([FromBody]JsonElement product, [FromRoute]string type)
@@ -146,6 +181,15 @@ public class ProductController(IMediator mediator, ILogger<ProductController> lo
         }
     }
 
+    /// <summary>
+    /// Deletes a product by identifier and type.
+    /// </summary>
+    /// <param name="id">Product identifier.</param>
+    /// <param name="type">Product type segment.</param>
+    /// <response code="204">Delete succeeded.</response>
+    /// <response code="400">Missing id or type.</response>
+    /// <response code="404">No product found to delete.</response>
+    /// <response code="500">Unexpected server error.</response>
     [HttpDelete]
     [Authorize(Roles = "Delete")]
     public async Task<IActionResult> Delete(Guid id, [FromRoute]string type)
