@@ -10,6 +10,7 @@ public static class Queries
     [
         "SELECT DISTINCT VALUE c.Team FROM c WHERE c.Category = 'CPU'",
         "SELECT DISTINCT VALUE c.Cores FROM c WHERE c.Category = 'CPU'",
+        "SELECT DISTINCT VALUE c.Socket FROM c WHERE c.Category = 'CPU'",
         "SELECT DISTINCT VALUE c.Architecture FROM c WHERE c.Category = 'CPU'",
         "SELECT DISTINCT VALUE c.TDP FROM c WHERE c.Category = 'CPU'"
     ];
