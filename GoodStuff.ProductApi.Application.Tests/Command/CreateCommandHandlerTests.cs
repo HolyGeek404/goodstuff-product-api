@@ -1,6 +1,5 @@
 using GoodStuff.ProductApi.Application.Features.Product.Commands.Create;
 using GoodStuff.ProductApi.Application.Interfaces;
-using GoodStuff.ProductApi.Application.Services;
 using GoodStuff.ProductApi.Domain.Products;
 using GoodStuff.ProductApi.Domain.Products.Models;
 using Moq;
@@ -11,15 +10,18 @@ namespace GoodStuff.ProductApi.Application.Tests.Command;
 
 public class CreateCommandHandlerTests
 {
-    private readonly Mock<IWriteRepository<Gpu>> _gpuRepo = new();
-    private readonly Mock<IWriteRepository<Cpu>> _cpuRepo = new();
-    private readonly Mock<IWriteRepository<Cooler>> _coolerRepo = new();
+    private readonly Mock<IUnitOfWork> _uow = new();
+    private readonly Mock<IGpuRepository> _gpuRepo = new();
+    private readonly Mock<ICpuRepository> _cpuRepo = new();
+    private readonly Mock<ICoolerRepository> _coolerRepo = new();
     private readonly CreateCommandHandler _handler;
 
     public CreateCommandHandlerTests()
     {
-        IWriteRepoCollection uow = new WriteRepoCollection(_cpuRepo.Object, _gpuRepo.Object, _coolerRepo.Object);
-        _handler = new CreateCommandHandler(uow);
+        _uow.SetupGet(u => u.GpuRepository).Returns(_gpuRepo.Object);
+        _uow.SetupGet(u => u.CpuRepository).Returns(_cpuRepo.Object);
+        _uow.SetupGet(u => u.CoolerRepository).Returns(_coolerRepo.Object);
+        _handler = new CreateCommandHandler(_uow.Object);
     }
 
     [Fact]

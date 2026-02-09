@@ -5,7 +5,7 @@ using MediatR;
 
 namespace GoodStuff.ProductApi.Application.Features.Product.Commands.Delete;
 
-public class DeleteCommandHandler(IWriteRepoCollection uow) : IRequestHandler<DeleteCommand, HttpStatusCode>
+public class DeleteCommandHandler(IUnitOfWork uow) : IRequestHandler<DeleteCommand, HttpStatusCode>
 {
     public async Task<HttpStatusCode> Handle(DeleteCommand request, CancellationToken cancellationToken)
     {

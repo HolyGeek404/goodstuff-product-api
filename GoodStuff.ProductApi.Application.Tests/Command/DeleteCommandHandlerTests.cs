@@ -9,10 +9,10 @@ namespace GoodStuff.ProductApi.Application.Tests.Command;
 
 public class DeleteCommandHandlerTests
 {
-    private readonly Mock<IWriteRepository<Gpu>> _gpuRepo = new();
-    private readonly Mock<IWriteRepository<Cpu>> _cpuRepo = new();
-    private readonly Mock<IWriteRepository<Cooler>> _coolerRepo = new();
-    private readonly Mock<IWriteRepoCollection> _uow = new();
+    private readonly Mock<IUnitOfWork> _uow = new();
+    private readonly Mock<IGpuRepository> _gpuRepo = new();
+    private readonly Mock<ICpuRepository> _cpuRepo = new();
+    private readonly Mock<ICoolerRepository> _coolerRepo = new();
 
     private readonly DeleteCommandHandler _handler;
 

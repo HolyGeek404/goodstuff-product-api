@@ -5,8 +5,7 @@ using Microsoft.Azure.Cosmos;
 
 namespace GoodStuff.ProductApi.Infrastructure.Repositories;
 
-public class CosmosRepository<TProduct>(CosmosClient cosmosClient)
-    : IReadRepository<TProduct>, IWriteRepository<TProduct>
+public class CosmosRepository<TProduct>(CosmosClient cosmosClient) : IReadRepository<TProduct>, IWriteRepository<TProduct>
 {
     private readonly Container _container = cosmosClient.GetContainer("GoodStuff", "Products");
 
@@ -31,7 +30,20 @@ public class CosmosRepository<TProduct>(CosmosClient cosmosClient)
         var results = await iterator.ReadNextAsync();
         return results.Resource.FirstOrDefault();
     }
-
+    
+    // public async Task GetFilters(string category)
+    // {
+    //     var queryList = QueryBuilder.GetFilterParams(category);
+    //     foreach (var query in queryList)
+    //     {
+    //         var iterator = _container.GetItemQueryIterator<TProduct>(query);
+    //         var response = await iterator.ReadNextAsync();
+    //         var result = response.Resource;
+    //     }
+    //    
+    //     
+    //     return results.Resource.FirstOrDefault();
+    // }
     public async Task<BaseProduct?> CreateAsync(TProduct entity, string id, string pk)
     {
         var partitionKey = new PartitionKey(pk);

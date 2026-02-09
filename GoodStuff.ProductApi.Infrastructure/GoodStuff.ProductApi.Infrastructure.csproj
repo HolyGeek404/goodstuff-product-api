@@ -8,15 +8,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="MediatR" Version="14.0.0" />
         <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.57.0" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <Reference Include="Autofac">
-            <HintPath>..\..\..\.nuget\packages\autofac\8.4.0\lib\net8.0\Autofac.dll</HintPath>
-        </Reference>
     </ItemGroup>
 
     <ItemGroup>

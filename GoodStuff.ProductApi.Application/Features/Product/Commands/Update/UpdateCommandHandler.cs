@@ -7,7 +7,7 @@ using MediatR;
 
 namespace GoodStuff.ProductApi.Application.Features.Product.Commands.Update;
 
-public class UpdateCommandHandler(IWriteRepoCollection uow) : IRequestHandler<UpdateCommand, HttpStatusCode>
+public class UpdateCommandHandler(IUnitOfWork uow) : IRequestHandler<UpdateCommand, HttpStatusCode>
 {
     public async Task<HttpStatusCode> Handle(UpdateCommand request, CancellationToken cancellationToken)
     {

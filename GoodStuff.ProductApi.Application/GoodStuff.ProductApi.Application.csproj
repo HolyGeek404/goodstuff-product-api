@@ -9,26 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Reference Include="Autofac">
-            <HintPath>..\..\..\.nuget\packages\autofac\8.4.0\lib\net8.0\Autofac.dll</HintPath>
-        </Reference>
-        <Reference Include="GoodStuff_DomainModels">
-            <HintPath>..\..\..\.nuget\packages\goodstuff_domainmodels\1.0.5\lib\net9.0\GoodStuff_DomainModels.dll</HintPath>
-        </Reference>
-        <Reference Include="MediatR.Contracts">
-            <HintPath>..\..\..\.nuget\packages\mediatr.contracts\2.0.1\lib\netstandard2.0\MediatR.Contracts.dll</HintPath>
-        </Reference>
-        <Reference Include="Microsoft.Azure.Cosmos.Client">
-            <HintPath>..\..\..\.nuget\packages\microsoft.azure.cosmos\3.53.1\lib\netstandard2.0\Microsoft.Azure.Cosmos.Client.dll</HintPath>
-        </Reference>
-        <Reference Include="Newtonsoft.Json">
-            <HintPath>..\..\..\.nuget\packages\newtonsoft.json\13.0.4\lib\net6.0\Newtonsoft.Json.dll</HintPath>
-        </Reference>
-    </ItemGroup>
-
-    <ItemGroup>
         <PackageReference Include="MediatR" Version="14.0.0" />
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     </ItemGroup>
 
     <ItemGroup>
