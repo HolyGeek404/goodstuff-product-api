@@ -6,6 +6,7 @@ using GoodStuff.ProductApi.Application.Features.Product.Commands.Delete;
 using GoodStuff.ProductApi.Application.Features.Product.Commands.Update;
 using GoodStuff.ProductApi.Application.Features.Product.Queries.GetById;
 using GoodStuff.ProductApi.Application.Features.Product.Queries.GetByType;
+using GoodStuff.ProductApi.Application.Features.Product.Queries.GetFilters;
 using GoodStuff.ProductApi.Application.Services;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -89,6 +90,39 @@ public class ProductController(IMediator mediator, ILogger<ProductController> lo
         catch (Exception ex)
         {
             Logger.LogExceptionInGetbyidnameByUnknownTypeTypeIdId(logger, ex, nameof(GetById), caller, type, id);
+            return StatusCode((int)HttpStatusCode.InternalServerError);
+        }
+    }
+
+    /// <summary>
+    /// Retrieves available filters for the given product type.
+    /// </summary>
+    /// <param name="type">Product type segment.</param>
+    /// <response code="200">Returns available filters for the requested type.</response>
+    /// <response code="404">Filters not found for the requested type.</response>
+    /// <response code="500">Unexpected server error.</response>
+    [HttpGet]
+    [Route("filters")]
+    public async Task<IActionResult> GetFilters([FromRoute]string type)
+    {
+        var caller = User.FindFirst("appid")?.Value ?? "Unknown";
+        Logger.LogCallingGetbytypenameByUnknownTypeType(logger, nameof(GetFilters), caller, type);
+
+        try
+        {
+            var result = await mediator.Send(new GetFiltersQuery { Type = type });
+            if (result == null)
+            {
+                Logger.LogNoProductsFoundInGetbytypenameByUnknownTypeType(logger, nameof(GetFilters), caller, type);
+                return NotFound($"No filters found for type: {type}");
+            }
+
+            Logger.LogSuccessfullyCalledGetbytypenameByUnknownTypeType(logger, nameof(GetFilters), caller, type);
+            return new JsonResult(result);
+        }
+        catch (Exception ex)
+        {
+            Logger.LogExceptionInGetbytypenameByUnknownTypeType(logger, ex, nameof(GetFilters), caller, type);
             return StatusCode((int)HttpStatusCode.InternalServerError);
         }
     }
