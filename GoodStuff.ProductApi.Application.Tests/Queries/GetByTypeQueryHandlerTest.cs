@@ -1,6 +1,5 @@
 using GoodStuff.ProductApi.Application.Features.Product.Queries.GetByType;
 using GoodStuff.ProductApi.Application.Interfaces;
-using GoodStuff.ProductApi.Application.Services;
 using GoodStuff.ProductApi.Application.Tests.Helpers;
 using GoodStuff.ProductApi.Domain.Products;
 using GoodStuff.ProductApi.Domain.Products.Models;
@@ -10,14 +9,16 @@ namespace GoodStuff.ProductApi.Application.Tests.Queries;
 
 public class GetByTypeQueryHandlerTest
 {
-    private readonly Mock<IReadRepository<Gpu>> _gpuRepo = new();
-    private readonly Mock<IReadRepository<Cpu>> _cpuRepo = new();
-    private readonly Mock<IReadRepository<Cooler>> _coolerRepo = new();
-    private readonly IReadRepoCollection _uow;
+    private readonly Mock<IUnitOfWork> _uow = new();
+    private readonly Mock<IGpuRepository> _gpuRepo = new();
+    private readonly Mock<ICpuRepository> _cpuRepo = new();
+    private readonly Mock<ICoolerRepository> _coolerRepo = new();
 
     public GetByTypeQueryHandlerTest()
     {
-        _uow = new ReadRepoCollection(_cpuRepo.Object, _gpuRepo.Object, _coolerRepo.Object);
+        _uow.SetupGet(x => x.GpuRepository).Returns(_gpuRepo.Object);
+        _uow.SetupGet(x => x.CpuRepository).Returns(_cpuRepo.Object);
+        _uow.SetupGet(x => x.CoolerRepository).Returns(_coolerRepo.Object);
     }
 
     [Theory]
@@ -27,7 +28,7 @@ public class GetByTypeQueryHandlerTest
     public async Task Handle_WhenTypeIsSupported_ReturnsProducts(string type)
     {
         // Arrange
-        var handler = new GetByTypeQueryHandler(_uow);
+        var handler = new GetByTypeQueryHandler(_uow.Object);
         var query = new GetByTypeQuery { Type = type };
 
         var expected = SetupRepository(type);
@@ -44,7 +45,7 @@ public class GetByTypeQueryHandlerTest
     public async Task Handle_WhenTypeIsNotSupported_ReturnsNull()
     {
         // Arrange
-        var handler = new GetByTypeQueryHandler(_uow);
+        var handler = new GetByTypeQueryHandler(_uow.Object);
         var query = new GetByTypeQuery { Type = "unknown" };
 
         // Act
@@ -59,13 +60,15 @@ public class GetByTypeQueryHandlerTest
 
     private object? SetupRepository(string type) => type switch
         {
-            ProductCategories.Gpu => Setup(_gpuRepo, [ProductFactory.CreateGpu()], type),
-            ProductCategories.Cpu => Setup(_cpuRepo, [ProductFactory.CreateCpu()], type),
-            ProductCategories.Cooler => Setup(_coolerRepo, [ProductFactory.CreateCooler()], type),
+            ProductCategories.Gpu => Setup<Gpu, IGpuRepository>(_gpuRepo, [ProductFactory.CreateGpu()], type),
+            ProductCategories.Cpu => Setup<Cpu, ICpuRepository>(_cpuRepo, [ProductFactory.CreateCpu()], type),
+            ProductCategories.Cooler => Setup<Cooler, ICoolerRepository>(_coolerRepo, [ProductFactory.CreateCooler()], type),
             _ => null
         };
 
-    private static List<T> Setup<T>(Mock<IReadRepository<T>> repo, List<T> data, string type) where T : class
+    private static List<T> Setup<T, TRepo>(Mock<TRepo> repo, List<T> data, string type)
+        where T : class
+        where TRepo : class, IReadRepository<T>
     {
         repo.Setup(r => r.GetByType(type)).ReturnsAsync(data); return data;
     }

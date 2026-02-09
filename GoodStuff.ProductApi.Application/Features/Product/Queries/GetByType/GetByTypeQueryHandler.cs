@@ -4,7 +4,7 @@ using MediatR;
 
 namespace GoodStuff.ProductApi.Application.Features.Product.Queries.GetByType;
 
-public class GetByTypeQueryHandler(IReadRepoCollection uow) : IRequestHandler<GetByTypeQuery, object?>
+public class GetByTypeQueryHandler(IUnitOfWork uow) : IRequestHandler<GetByTypeQuery, object?>
 {
     public async Task<object?> Handle(GetByTypeQuery request, CancellationToken cancellationToken)
     {

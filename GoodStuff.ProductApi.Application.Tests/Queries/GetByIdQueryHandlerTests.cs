@@ -1,6 +1,5 @@
 using GoodStuff.ProductApi.Application.Features.Product.Queries.GetById;
 using GoodStuff.ProductApi.Application.Interfaces;
-using GoodStuff.ProductApi.Application.Services;
 using GoodStuff.ProductApi.Application.Tests.Helpers;
 using GoodStuff.ProductApi.Domain.Products;
 using GoodStuff.ProductApi.Domain.Products.Models;
@@ -10,15 +9,18 @@ namespace GoodStuff.ProductApi.Application.Tests.Queries;
 
 public class GetByIdQueryHandlerTests
 {
-    private readonly Mock<IReadRepository<Gpu>> _gpuRepo = new();
-    private readonly Mock<IReadRepository<Cpu>> _cpuRepo = new();
-    private readonly Mock<IReadRepository<Cooler>> _coolerRepo = new();
+    private readonly Mock<IUnitOfWork> _uow = new();
+    private readonly Mock<IGpuRepository> _gpuRepo = new();
+    private readonly Mock<ICpuRepository> _cpuRepo = new();
+    private readonly Mock<ICoolerRepository> _coolerRepo = new();
     private readonly GetByIdQueryHandler _handler;
 
     public GetByIdQueryHandlerTests()
     {
-        IReadRepoCollection uow = new ReadRepoCollection(_cpuRepo.Object, _gpuRepo.Object, _coolerRepo.Object);
-        _handler = new GetByIdQueryHandler(uow);
+        _uow.SetupGet(x => x.GpuRepository).Returns(_gpuRepo.Object);
+        _uow.SetupGet(x => x.CpuRepository).Returns(_cpuRepo.Object);
+        _uow.SetupGet(x => x.CoolerRepository).Returns(_coolerRepo.Object);
+        _handler = new GetByIdQueryHandler(_uow.Object);
     }
 
     [Theory]
@@ -30,9 +32,9 @@ public class GetByIdQueryHandlerTests
         // Arrange
         object expected = type switch
         {
-            ProductCategories.Gpu => Setup(_gpuRepo, ProductFactory.CreateGpu()),
-            ProductCategories.Cpu => Setup(_cpuRepo, ProductFactory.CreateCpu()),
-            ProductCategories.Cooler => Setup(_coolerRepo, ProductFactory.CreateCooler()),
+            ProductCategories.Gpu => Setup<Gpu, IGpuRepository>(_gpuRepo, ProductFactory.CreateGpu()),
+            ProductCategories.Cpu => Setup<Cpu, ICpuRepository>(_cpuRepo, ProductFactory.CreateCpu()),
+            ProductCategories.Cooler => Setup<Cooler, ICoolerRepository>(_coolerRepo, ProductFactory.CreateCooler()),
             _ => throw new ArgumentOutOfRangeException(nameof(type))
         };
 
@@ -50,7 +52,7 @@ public class GetByIdQueryHandlerTests
     public async Task Handle_WhenTypeIsNotSupported_ReturnsEmptyEnumerable()
     {
         // Arrange
-        var uowMock = new Mock<IReadRepoCollection>();
+        var uowMock = new Mock<IUnitOfWork>();
         var handler = new GetByIdQueryHandler(uowMock.Object);
         var query = new GetByIdQuery { Type = "UNSUPPORTED", Id = "123" };
 
@@ -76,7 +78,9 @@ public class GetByIdQueryHandlerTests
     }
 
     // ---------- Helpers ----------
-    private static T Setup<T>(Mock<IReadRepository<T>> repo, T data) where T : class
+    private static T Setup<T, TRepo>(Mock<TRepo> repo, T data)
+        where T : class
+        where TRepo : class, IReadRepository<T>
     {
         repo.Setup(r => r.GetById(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(data); return data;
     }

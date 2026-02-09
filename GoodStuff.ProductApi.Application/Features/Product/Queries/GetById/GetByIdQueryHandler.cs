@@ -4,7 +4,7 @@ using MediatR;
 
 namespace GoodStuff.ProductApi.Application.Features.Product.Queries.GetById;
 
-public class GetByIdQueryHandler(IReadRepoCollection uow) : IRequestHandler<GetByIdQuery, object?>
+public class GetByIdQueryHandler(IUnitOfWork uow) : IRequestHandler<GetByIdQuery, object?>
 {
     public async Task<object?> Handle(GetByIdQuery request, CancellationToken cancellationToken)
     {
