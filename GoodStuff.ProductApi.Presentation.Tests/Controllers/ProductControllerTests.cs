@@ -6,7 +6,7 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using GoodStuff.ProductApi.Domain.Products;
 using GoodStuff.ProductApi.Domain.Products.Models;
-using GoodStuff.ProductApi.Presentation.Tests.Helpers;
+using GoodStuff.ProductApi.Api.Tests.Helpers;
 
 namespace GoodStuff.ProductApi.Presentation.Tests.Controllers;
 

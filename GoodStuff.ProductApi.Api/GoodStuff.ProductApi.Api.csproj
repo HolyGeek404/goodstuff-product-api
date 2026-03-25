@@ -21,9 +21,5 @@
     <PropertyGroup>
         <PreserveCompilationContext>true</PreserveCompilationContext>
     </PropertyGroup>
-    <ItemGroup>
-        <ProjectReference Include="..\GoodStuff.ProductApi.Application\GoodStuff.ProductApi.Application.csproj"/>
-        <ProjectReference Include="..\GoodStuff.ProductApi.Infrastructure\GoodStuff.ProductApi.Infrastructure.csproj"/>
-    </ItemGroup>
 
 </Project>

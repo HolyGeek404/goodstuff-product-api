@@ -9,7 +9,7 @@ using Microsoft.OpenApi;
 using System.Reflection;
 using GoodStuff.ProductApi.Infrastructure;
 
-namespace GoodStuff.ProductApi.Presentation.Extensions;
+namespace GoodStuff.ProductApi.Api.Extensions;
 
 public static class ServiceCollectionExtensions
 {

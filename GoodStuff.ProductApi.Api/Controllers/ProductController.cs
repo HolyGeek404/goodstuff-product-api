@@ -12,7 +12,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GoodStuff.ProductApi.Presentation.Controllers;
+namespace GoodStuff.ProductApi.Api.Controllers;
 
 /// <summary>
 /// Exposes product catalog endpoints by product type.

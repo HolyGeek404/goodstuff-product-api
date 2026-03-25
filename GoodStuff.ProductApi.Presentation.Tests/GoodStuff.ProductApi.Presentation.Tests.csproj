@@ -23,8 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\GoodStuff.ProductApi.Domain\GoodStuff.ProductApi.Domain.csproj" />
-      <ProjectReference Include="..\GoodStuff.ProductApi.Presentation\GoodStuff.ProductApi.Presentation.csproj" />
+      <ProjectReference Include="..\GoodStuff.ProductApi.Api\GoodStuff.ProductApi.Api.csproj" />
     </ItemGroup>
 
 </Project>
