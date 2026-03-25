@@ -5,29 +5,23 @@ FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
 # Copy only csproj files first
-COPY GoodStuff.ProductApi.Presentation/*.csproj GoodStuff.ProductApi.Presentation/
-COPY GoodStuff.ProductApi.Application/*.csproj GoodStuff.ProductApi.Application/
-COPY GoodStuff.ProductApi.Domain/*.csproj GoodStuff.ProductApi.Domain/
-COPY GoodStuff.ProductApi.Infrastructure/*.csproj GoodStuff.ProductApi.Infrastructure/
-COPY GoodStuff.ProductApi.Application.Tests/*.csproj GoodStuff.ProductApi.Application.Tests/
+COPY GoodStuff.ProductApi.Api/*.csproj GoodStuff.ProductApi.Api/
+COPY GoodStuff.ProductApi.Api.Tests/*.csproj GoodStuff.ProductApi.Api.Tests/
 
 # Restore dependencies
-RUN dotnet restore GoodStuff.ProductApi.Presentation/GoodStuff.ProductApi.Presentation.csproj
+RUN dotnet restore GoodStuff.ProductApi.Api/GoodStuff.ProductApi.Api.csproj
 
 # Copy full source
-COPY GoodStuff.ProductApi.Presentation/ GoodStuff.ProductApi.Presentation/
-COPY GoodStuff.ProductApi.Application/ GoodStuff.ProductApi.Application/
-COPY GoodStuff.ProductApi.Domain/ GoodStuff.ProductApi.Domain/
-COPY GoodStuff.ProductApi.Infrastructure/ GoodStuff.ProductApi.Infrastructure/
-COPY GoodStuff.ProductApi.Application.Tests/ GoodStuff.ProductApi.Application.Tests/
+COPY GoodStuff.ProductApi.Api/ GoodStuff.ProductApi.Api/
+COPY GoodStuff.ProductApi.Api.Tests/ GoodStuff.ProductApi.Api.Tests/
 
 # Optional: test stage
 FROM build AS test
-RUN dotnet test GoodStuff.ProductApi.Application.Tests/GoodStuff.ProductApi.Application.Tests.csproj --no-restore
+RUN dotnet test GoodStuff.ProductApi.Api.Tests/GoodStuff.ProductApi.Api.Tests.csproj --no-restore
 
 # Publish stage
 FROM build AS publish
-RUN dotnet publish GoodStuff.ProductApi.Presentation/GoodStuff.ProductApi.Presentation.csproj \
+RUN dotnet publish GoodStuff.ProductApi.Api/GoodStuff.ProductApi.Api.csproj \
     --no-restore -c Release -o /app/publish
 
 # -------------------------
@@ -39,4 +33,4 @@ WORKDIR /app
 # Copy only published files
 COPY --from=publish /app/publish .
 
-ENTRYPOINT ["dotnet", "GoodStuff.ProductApi.Presentation.dll"]
+ENTRYPOINT ["dotnet", "GoodStuff.ProductApi.Api.dll"]
