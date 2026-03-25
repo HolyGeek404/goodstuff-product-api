@@ -4,10 +4,10 @@ using GoodStuff.ProductApi.Api.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Services.AddCosmosRepoConfig(builder);
-builder.Services.AddMediatrConfig();
 builder.Services.AddAzureConfig(builder.Configuration);
 builder.Services.AddDataBaseConfig(builder.Configuration);
 builder.Services.AddControllers();
+builder.Services.AddServices();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerConfig(builder.Configuration);
 

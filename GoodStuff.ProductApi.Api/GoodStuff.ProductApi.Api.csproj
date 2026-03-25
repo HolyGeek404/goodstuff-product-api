@@ -12,10 +12,10 @@
         <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="10.0.0"/>
         <PackageReference Include="Azure.Extensions.AspNetCore.Configuration.Secrets" Version="1.4.0"/>
         <PackageReference Include="Azure.Identity" Version="1.17.1" />
-        <PackageReference Include="MediatR" Version="14.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.2" />
         <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.57.0" />
         <PackageReference Include="Microsoft.Identity.Web" Version="4.3.0" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="10.1.2" />
     </ItemGroup>
     <PropertyGroup>

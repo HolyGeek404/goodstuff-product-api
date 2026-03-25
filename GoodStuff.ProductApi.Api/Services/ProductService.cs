@@ -6,7 +6,7 @@ using GoodStuff.ProductApi.Api.Products.Models;
 
 namespace GoodStuff.ProductApi.Api.Services;
 
-public class ProductService(IUnitOfWork uow)
+public class ProductService(IUnitOfWork uow) : IProductService
 {
     #region Queries
     public async Task<object?> GetByIdAndType(string type, string id)

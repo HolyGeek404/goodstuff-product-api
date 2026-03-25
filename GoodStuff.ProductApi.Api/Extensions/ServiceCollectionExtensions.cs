@@ -4,9 +4,9 @@ using Microsoft.Azure.Cosmos;
 using Microsoft.Identity.Web;
 using Microsoft.OpenApi;
 using System.Reflection;
-using GoodStuff.ProductApi.Api.Features.Product.Queries.GetByType;
 using GoodStuff.ProductApi.Api.Interfaces;
 using GoodStuff.ProductApi.Api.Repositories;
+using GoodStuff.ProductApi.Api.Services;
 
 namespace GoodStuff.ProductApi.Api.Extensions;
 
@@ -25,9 +25,9 @@ public static class ServiceCollectionExtensions
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
-        public void AddMediatrConfig()
+        public void AddServices()
         {
-            services.AddMediatR(x => x.RegisterServicesFromAssembly(typeof(GetByTypeQuery).Assembly));
+            services.AddScoped<IProductService, ProductService>();
         }
 
         public void AddAzureConfig(IConfigurationManager configuration)

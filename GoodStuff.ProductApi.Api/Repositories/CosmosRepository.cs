@@ -44,8 +44,6 @@ public class CosmosRepository<TProduct>(CosmosClient cosmosClient) : IReadReposi
             Console.WriteLine(e);
             throw;
         }
-
-        return null;
     }
 
     public async Task<HttpStatusCode> UpdateAsync(TProduct entity, string id, string pk)

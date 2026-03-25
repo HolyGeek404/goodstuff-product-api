@@ -1,14 +1,7 @@
 using System.Net;
 using System.Text.Json;
 using System.Text.Json.Nodes;
-using GoodStuff.ProductApi.Api.Features.Product.Commands.Create;
-using GoodStuff.ProductApi.Api.Features.Product.Commands.Delete;
-using GoodStuff.ProductApi.Api.Features.Product.Commands.Update;
-using GoodStuff.ProductApi.Api.Features.Product.Queries.GetById;
-using GoodStuff.ProductApi.Api.Features.Product.Queries.GetByType;
-using GoodStuff.ProductApi.Api.Features.Product.Queries.GetFilters;
-using GoodStuff.ProductApi.Application.Services;
-using MediatR;
+using GoodStuff.ProductApi.Api.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Logger = GoodStuff.ProductApi.Api.Services.Logger;
@@ -20,7 +13,7 @@ namespace GoodStuff.ProductApi.Api.Controllers;
 /// </summary>
 [ApiController]
 [Route("[controller]/{type:alpha}")]
-public class ProductController(IMediator mediator, ILogger<ProductController> logger) : Controller
+public class ProductController(IProductService productService,ILogger<ProductController> logger) : Controller
 {
     /// <summary>
     /// Retrieves all products for a given product type.
@@ -37,7 +30,7 @@ public class ProductController(IMediator mediator, ILogger<ProductController> lo
 
         try
         {
-            var result = await mediator.Send(new GetByTypeQuery { Type = type });
+            var result = await productService.GetByType(type);
             if (result == null)
             {
                 Logger.LogNoProductsFoundInGetbytypenameByUnknownTypeType(logger, nameof(GetByType), caller, type);
@@ -78,7 +71,7 @@ public class ProductController(IMediator mediator, ILogger<ProductController> lo
 
         try
         {
-            var products = await mediator.Send(new GetByIdQuery { Type = type, Id = id });
+            var products = await productService.GetByIdAndType(id, type);
             if (products == null)
             {
                 Logger.LogNoProductFoundInGetbyidnameByUnknownTypeTypeIdId(logger, nameof(GetById), caller, type, id);
@@ -111,7 +104,7 @@ public class ProductController(IMediator mediator, ILogger<ProductController> lo
 
         try
         {
-            var result = await mediator.Send(new GetFiltersQuery { Type = type });
+            var result = await productService.GetFilterByType(type);
             if (result == null)
             {
                 Logger.LogNoProductsFoundInGetbytypenameByUnknownTypeType(logger, nameof(GetFilters), caller, type);
@@ -152,7 +145,7 @@ public class ProductController(IMediator mediator, ILogger<ProductController> lo
 
         try
         {
-            var result = await mediator.Send(new UpdateCommand { BaseProduct = product, Type = type });
+            var result = await productService.Update(product, type);
 
             switch (result)
             {
@@ -197,7 +190,7 @@ public class ProductController(IMediator mediator, ILogger<ProductController> lo
 
         try
         {
-            var result = await mediator.Send(new  CreateCommand { Product = product, Type = type });
+            var result = await productService.Create(product, type);
 
             if (result == null || string.IsNullOrEmpty(result.id))
             {
@@ -240,7 +233,7 @@ public class ProductController(IMediator mediator, ILogger<ProductController> lo
 
         try
         {
-            var result = await mediator.Send(new DeleteCommand { Id = id, Type = type });
+            var result = await productService.Delete(id, type);
 
             switch (result)
             {
