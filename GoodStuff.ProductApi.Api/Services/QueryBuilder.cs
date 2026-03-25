@@ -1,6 +1,7 @@
+using GoodStuff.ProductApi.Api.Models;
 using Microsoft.Azure.Cosmos;
 
-namespace GoodStuff.ProductApi.Api;
+namespace GoodStuff.ProductApi.Api.Services;
 
 public static class QueryBuilder
 {

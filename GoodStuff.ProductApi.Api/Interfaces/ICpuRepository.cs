@@ -1,5 +1,4 @@
-using GoodStuff.ProductApi.Api.DTO;
-using GoodStuff.ProductApi.Api.Products.Models;
+using GoodStuff.ProductApi.Api.Models;
 
 namespace GoodStuff.ProductApi.Api.Interfaces;
 

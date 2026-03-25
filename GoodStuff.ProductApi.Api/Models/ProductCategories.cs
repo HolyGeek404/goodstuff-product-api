@@ -1,4 +1,4 @@
-namespace GoodStuff.ProductApi.Api.Products;
+namespace GoodStuff.ProductApi.Api.Models;
 
 public static class ProductCategories
 {

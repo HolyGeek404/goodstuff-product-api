@@ -1,6 +1,7 @@
 using System.Net;
 using GoodStuff.ProductApi.Api.Interfaces;
-using GoodStuff.ProductApi.Api.Products.Models;
+using GoodStuff.ProductApi.Api.Models;
+using GoodStuff.ProductApi.Api.Services;
 using Microsoft.Azure.Cosmos;
 
 namespace GoodStuff.ProductApi.Api.Repositories;

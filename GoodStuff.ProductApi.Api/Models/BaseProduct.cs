@@ -1,4 +1,4 @@
-namespace GoodStuff.ProductApi.Api.Products.Models;
+namespace GoodStuff.ProductApi.Api.Models;
 
 public class BaseProduct
 {

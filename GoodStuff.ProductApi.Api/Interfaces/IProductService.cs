@@ -1,8 +1,8 @@
 using System.Net;
 using System.Text.Json;
-using GoodStuff.ProductApi.Api.Products.Models;
+using GoodStuff.ProductApi.Api.Models;
 
-namespace GoodStuff.ProductApi.Api.Services;
+namespace GoodStuff.ProductApi.Api.Interfaces;
 
 public interface IProductService
 {

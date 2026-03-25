@@ -1,8 +1,7 @@
 using System.Net;
 using System.Text.Json;
 using GoodStuff.ProductApi.Api.Interfaces;
-using GoodStuff.ProductApi.Api.Products;
-using GoodStuff.ProductApi.Api.Products.Models;
+using GoodStuff.ProductApi.Api.Models;
 
 namespace GoodStuff.ProductApi.Api.Services;
 
