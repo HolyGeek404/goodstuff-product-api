@@ -1,4 +1,4 @@
-namespace GoodStuff.ProductApi.Application.DTO;
+namespace GoodStuff.ProductApi.Api.DTO;
 
 public class CpuFilters
 {

@@ -1,9 +1,9 @@
 using System.Net;
-using GoodStuff.ProductApi.Application.Interfaces;
-using GoodStuff.ProductApi.Domain.Products;
+using GoodStuff.ProductApi.Api.Interfaces;
+using GoodStuff.ProductApi.Api.Products;
 using MediatR;
 
-namespace GoodStuff.ProductApi.Application.Features.Product.Commands.Delete;
+namespace GoodStuff.ProductApi.Api.Features.Product.Commands.Delete;
 
 public class DeleteCommandHandler(IUnitOfWork uow) : IRequestHandler<DeleteCommand, HttpStatusCode>
 {

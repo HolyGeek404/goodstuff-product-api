@@ -1,6 +1,6 @@
 using Microsoft.Azure.Cosmos;
 
-namespace GoodStuff.ProductApi.Infrastructure;
+namespace GoodStuff.ProductApi.Api;
 
 public static class QueryBuilder
 {

@@ -1,8 +1,8 @@
 using System.Text.Json;
-using GoodStuff.ProductApi.Domain.Products.Models;
+using GoodStuff.ProductApi.Api.Products.Models;
 using MediatR;
 
-namespace GoodStuff.ProductApi.Application.Features.Product.Commands.Create;
+namespace GoodStuff.ProductApi.Api.Features.Product.Commands.Create;
 
 public class CreateCommand : IRequest<BaseProduct?>
 {

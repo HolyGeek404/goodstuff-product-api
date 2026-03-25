@@ -1,9 +1,9 @@
 using System.Net;
-using GoodStuff.ProductApi.Application.Interfaces;
-using GoodStuff.ProductApi.Domain.Products.Models;
+using GoodStuff.ProductApi.Api.Interfaces;
+using GoodStuff.ProductApi.Api.Products.Models;
 using Microsoft.Azure.Cosmos;
 
-namespace GoodStuff.ProductApi.Infrastructure.Repositories;
+namespace GoodStuff.ProductApi.Api.Repositories;
 
 public class CosmosRepository<TProduct>(CosmosClient cosmosClient) : IReadRepository<TProduct>, IWriteRepository<TProduct>
 {

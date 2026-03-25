@@ -1,13 +1,12 @@
 using Azure.Identity;
-using GoodStuff.ProductApi.Application.Features.Product.Queries.GetByType;
-using GoodStuff.ProductApi.Application.Interfaces;
-using GoodStuff.ProductApi.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Azure.Cosmos;
 using Microsoft.Identity.Web;
 using Microsoft.OpenApi;
 using System.Reflection;
-using GoodStuff.ProductApi.Infrastructure;
+using GoodStuff.ProductApi.Api.Features.Product.Queries.GetByType;
+using GoodStuff.ProductApi.Api.Interfaces;
+using GoodStuff.ProductApi.Api.Repositories;
 
 namespace GoodStuff.ProductApi.Api.Extensions;
 

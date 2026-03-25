@@ -1,4 +1,4 @@
-namespace GoodStuff.ProductApi.Application.Interfaces;
+namespace GoodStuff.ProductApi.Api.Interfaces;
 
 public interface IReadRepository<TProduct>
 {

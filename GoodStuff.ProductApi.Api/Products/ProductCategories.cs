@@ -1,4 +1,4 @@
-namespace GoodStuff.ProductApi.Domain.Products;
+namespace GoodStuff.ProductApi.Api.Products;
 
 public static class ProductCategories
 {

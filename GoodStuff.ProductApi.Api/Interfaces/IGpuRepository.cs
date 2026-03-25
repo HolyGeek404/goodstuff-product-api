@@ -1,5 +1,5 @@
-using GoodStuff.ProductApi.Domain.Products.Models;
+using GoodStuff.ProductApi.Api.Products.Models;
 
-namespace GoodStuff.ProductApi.Application.Interfaces;
+namespace GoodStuff.ProductApi.Api.Interfaces;
 
 public interface IGpuRepository : IReadRepository<Gpu>, IWriteRepository<Gpu>;

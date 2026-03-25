@@ -2,7 +2,7 @@ using System.Net;
 using System.Text.Json;
 using MediatR;
 
-namespace GoodStuff.ProductApi.Application.Features.Product.Commands.Update;
+namespace GoodStuff.ProductApi.Api.Features.Product.Commands.Update;
 
 public class UpdateCommand : IRequest<HttpStatusCode>
 {

@@ -1,8 +1,7 @@
 using System.Net;
 using System.Text.Json;
-using Microsoft.Extensions.Logging;
 
-namespace GoodStuff.ProductApi.Application.Services;
+namespace GoodStuff.ProductApi.Api.Services;
 
 public static partial class Logger
 {

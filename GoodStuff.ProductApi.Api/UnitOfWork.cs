@@ -1,6 +1,6 @@
-using GoodStuff.ProductApi.Application.Interfaces;
+using GoodStuff.ProductApi.Api.Interfaces;
 
-namespace GoodStuff.ProductApi.Infrastructure;
+namespace GoodStuff.ProductApi.Api;
 
 public class UnitOfWork(ICpuRepository cpuRepository, IGpuRepository gpuRepository, ICoolerRepository coolerRepository) : IUnitOfWork
 {

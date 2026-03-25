@@ -1,16 +1,17 @@
 using System.Net;
 using System.Text.Json;
 using System.Text.Json.Nodes;
-using GoodStuff.ProductApi.Application.Features.Product.Commands.Create;
-using GoodStuff.ProductApi.Application.Features.Product.Commands.Delete;
-using GoodStuff.ProductApi.Application.Features.Product.Commands.Update;
-using GoodStuff.ProductApi.Application.Features.Product.Queries.GetById;
-using GoodStuff.ProductApi.Application.Features.Product.Queries.GetByType;
-using GoodStuff.ProductApi.Application.Features.Product.Queries.GetFilters;
+using GoodStuff.ProductApi.Api.Features.Product.Commands.Create;
+using GoodStuff.ProductApi.Api.Features.Product.Commands.Delete;
+using GoodStuff.ProductApi.Api.Features.Product.Commands.Update;
+using GoodStuff.ProductApi.Api.Features.Product.Queries.GetById;
+using GoodStuff.ProductApi.Api.Features.Product.Queries.GetByType;
+using GoodStuff.ProductApi.Api.Features.Product.Queries.GetFilters;
 using GoodStuff.ProductApi.Application.Services;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Logger = GoodStuff.ProductApi.Api.Services.Logger;
 
 namespace GoodStuff.ProductApi.Api.Controllers;
 

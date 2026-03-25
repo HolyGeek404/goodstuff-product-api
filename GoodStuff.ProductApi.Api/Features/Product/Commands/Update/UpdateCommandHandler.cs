@@ -1,11 +1,11 @@
 using System.Net;
 using System.Text.Json;
-using GoodStuff.ProductApi.Application.Interfaces;
-using GoodStuff.ProductApi.Domain.Products;
-using GoodStuff.ProductApi.Domain.Products.Models;
+using GoodStuff.ProductApi.Api.Interfaces;
+using GoodStuff.ProductApi.Api.Products;
+using GoodStuff.ProductApi.Api.Products.Models;
 using MediatR;
 
-namespace GoodStuff.ProductApi.Application.Features.Product.Commands.Update;
+namespace GoodStuff.ProductApi.Api.Features.Product.Commands.Update;
 
 public class UpdateCommandHandler(IUnitOfWork uow) : IRequestHandler<UpdateCommand, HttpStatusCode>
 {
