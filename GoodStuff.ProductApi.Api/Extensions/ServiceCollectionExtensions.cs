@@ -27,7 +27,7 @@ public static class ServiceCollectionExtensions
 
         public void AddServices()
         {
-            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IProductService, ProductServiceUnit>();
         }
 
         public void AddAzureConfig(IConfigurationManager configuration)

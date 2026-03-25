@@ -72,7 +72,7 @@ public class ProductController(IProductService productService,ILogger<ProductCon
 
         try
         {
-            var products = await productService.GetByIdAndType(id, type);
+            var products = await productService.GetByIdAndType(type, id);
             if (products == null)
             {
                 Logger.LogNoProductFoundInGetbyidnameByUnknownTypeTypeIdId(logger, nameof(GetById), caller, type, id);

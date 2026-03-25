@@ -1,8 +1,7 @@
 using System.Text.Json;
-using GoodStuff.ProductApi.Domain.Products;
-using GoodStuff.ProductApi.Domain.Products.Models;
+using GoodStuff.ProductApi.Api.Models;
 
-namespace GoodStuff.ProductApi.Presentation.Tests.Helpers;
+namespace GoodStuff.ProductApi.Api.Tests.Integration.Helpers;
 
 public static class ProductFactory
 {

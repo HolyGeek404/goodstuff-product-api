@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace GoodStuff.ProductApi.Presentation.Tests.Helpers;
+namespace GoodStuff.ProductApi.Api.Tests.Integration.Helpers;
 
 public class TestingWebAppFactory : WebApplicationFactory<Program>
 {

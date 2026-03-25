@@ -4,11 +4,10 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
-using GoodStuff.ProductApi.Domain.Products;
-using GoodStuff.ProductApi.Domain.Products.Models;
-using GoodStuff.ProductApi.Api.Tests.Helpers;
+using GoodStuff.ProductApi.Api.Models;
+using GoodStuff.ProductApi.Api.Tests.Integration.Helpers;
 
-namespace GoodStuff.ProductApi.Presentation.Tests.Controllers;
+namespace GoodStuff.ProductApi.Api.Tests.Integration.Controllers;
 
 public class ProductControllerTests(TestingWebAppFactory factory) : IClassFixture<TestingWebAppFactory>
 {
