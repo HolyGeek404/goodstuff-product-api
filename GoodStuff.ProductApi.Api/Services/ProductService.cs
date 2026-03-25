@@ -1,5 +1,8 @@
+using System.Net;
+using System.Text.Json;
 using GoodStuff.ProductApi.Api.Interfaces;
 using GoodStuff.ProductApi.Api.Products;
+using GoodStuff.ProductApi.Api.Products.Models;
 
 namespace GoodStuff.ProductApi.Api.Services;
 
@@ -35,6 +38,51 @@ public class ProductService(IUnitOfWork uow)
         };
     }
     #endregion
-    
-    
+
+    #region Commands
+    public async Task<BaseProduct?> Create(JsonElement product, string type)
+    {
+        switch (type.ToUpper())
+        {
+            case ProductCategories.Gpu:
+                var gpu = product.Deserialize<Gpu>()!;
+                return await uow.GpuRepository.CreateAsync(gpu, gpu.id, gpu.Category);
+            case ProductCategories.Cpu:
+                var cpu = product.Deserialize<Cpu>()!;
+                return await uow.CpuRepository.CreateAsync(cpu, cpu.id, cpu.Category);
+            case ProductCategories.Cooler:
+                var cooler = product.Deserialize<Cooler>()!;
+                return await uow.CoolerRepository.CreateAsync(cooler, cooler.id, cooler.Category);
+            default:
+                return null;
+        }
+    }
+    public async Task<HttpStatusCode> Delete(Guid id, string type)
+    {
+        return type.ToUpper() switch
+        {
+            ProductCategories.Gpu => await uow.GpuRepository.DeleteAsync(id, type),
+            ProductCategories.Cpu => await uow.CpuRepository.DeleteAsync(id, type),
+            ProductCategories.Cooler => await uow.CoolerRepository.DeleteAsync(id, type),
+            _ => HttpStatusCode.BadRequest
+        };
+    }
+    public async Task<HttpStatusCode> Update(JsonElement product, string type)
+    {
+        switch (type.ToUpper())
+        {
+            case ProductCategories.Gpu:
+                var gpu = product.Deserialize<Gpu>()!;
+                return await uow.GpuRepository.UpdateAsync(gpu, gpu.id, gpu.Category);
+            case ProductCategories.Cpu:
+                var cpu = product.Deserialize<Cpu>()!;
+                return await uow.CpuRepository.UpdateAsync(cpu, cpu.id, cpu.Category);
+            case ProductCategories.Cooler:
+                var cooler = product.Deserialize<Cooler>()!;
+                return await uow.CoolerRepository.UpdateAsync(cooler, cooler.id, cooler.Category);
+            default:
+                return HttpStatusCode.BadRequest;
+        }
+    }
+    #endregion
 }
