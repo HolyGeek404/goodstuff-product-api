@@ -9,4 +9,4 @@ jobs:
     uses: HolyGeek404/goodstuff-templates/.github/workflows/api-pr-build-test.yml@main
     name: "PR Build"
     with:
-      test-path: 'GoodStuff.ProductApi.Application.Tests/GoodStuff.ProductApi.Application.Tests.csproj'
+      test-path: 'GoodStuff.ProductApi.Api.Tests/GoodStuff.ProductApi.Api.Tests.csproj'
